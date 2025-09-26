@@ -1,8 +1,8 @@
 import { Telegraf } from "telegraf";
-import * as dotenv from "dotenv";
+// import * as dotenv from "dotenv";
 import { setupCommands } from "./commands";
 
-dotenv.config();
+// dotenv.config();
 
 if (!process.env.BOT_TOKEN) {
   throw new Error("BOT_TOKEN is not defined in .env");

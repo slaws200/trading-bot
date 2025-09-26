@@ -1,8 +1,8 @@
 import { bot } from "./bot/bot";
 
 async function bootstrap() {
-  await bot.launch();
   console.log("🤖 Bot is running...");
+  await bot.launch();
 }
 
 bootstrap();
