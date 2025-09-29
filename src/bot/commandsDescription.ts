@@ -8,11 +8,12 @@ const commandsDescription: Record<string, string> = {
   oi_by_tiker: "Открытый интерес по тикеру (по умолчанию BTCUSDT)",
   get_funding_rates: "Текущие ставки финансирования",
   help: "Помощь",
+  feedback: "Отзыв или предложение",
 };
 
 export const listToSetCommands = commandsNames.map((command) => {
   return {
-    command: command.toLowerCase(),
+    command: command,
     description: commandsDescription[command],
   };
 });

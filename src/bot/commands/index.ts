@@ -24,4 +24,7 @@ export const commandHandlers: Record<
           .join("\n")
     );
   },
+  feedback: async (ctx) => {
+    ctx.scene.enter("feedback_scene");
+  },
 };

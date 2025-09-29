@@ -3,6 +3,7 @@ import { getBinanceFundingRates } from "../../api/binance/getBinanceFundingRates
 import { getBybitFundingRates } from "../../api/bybit/getBybitFundingRates";
 
 export async function get_funding_rates(ctx: Context) {
+  const initialMsg = await ctx.reply("Получаю данные, ждём 🌚");
   const funding = (await getBinanceFundingRates()) ?? [];
   const bybitFunding = await getBybitFundingRates();
   const list = (funding: string[]) => {
@@ -13,7 +14,10 @@ export async function get_funding_rates(ctx: Context) {
     }
   };
 
-  ctx.reply(
+  await ctx.telegram.editMessageText(
+    initialMsg.chat.id,
+    initialMsg.message_id,
+    undefined,
     `Binance: \n\n ${list(funding).join("\n")} \n\nBybit: \n\n ${list(
       bybitFunding
     ).join("\n")}`,

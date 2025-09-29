@@ -1,7 +1,8 @@
-import { Context, NarrowedContext } from "telegraf";
+import { Context, NarrowedContext, Scenes } from "telegraf";
 import { Update, Message } from "telegraf/typings/core/types/typegram";
 
-export type MyContext = NarrowedContext<
-  Context<Update>,
-  Update.MessageUpdate<Record<"text", {}> & Message.TextMessage>
->;
+export type MyContext = Scenes.SceneContext &
+  NarrowedContext<
+    Context<Update>,
+    Update.MessageUpdate<Record<"text", {}> & Message.TextMessage>
+  >;

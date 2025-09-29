@@ -4,9 +4,12 @@ import { MyContext } from "../types/MyContext";
 export const router = (ctx: MyContext) => {
   const command = ctx.message?.text;
   if (!command.startsWith("/")) {
-    commandHandlers.help(ctx);
+    ctx.reply(
+      "Я понимаю только команды, используй меню или вызови /help раздел помощи☺️"
+    );
     return;
   }
   const handler = command.slice(1);
-  commandHandlers[handler](ctx);
+  Object.keys(commandHandlers).includes(handler) &&
+    commandHandlers[handler](ctx);
 };
