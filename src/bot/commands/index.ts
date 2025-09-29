@@ -1,6 +1,7 @@
 import { MyContext } from "../../types/MyContext";
 import { funding_history_by_tiker } from "./binance/funding_history_by_tiker";
 import { oi_by_tiker } from "./binance/oi_by_tiker";
+import { feedback } from "./feedback";
 import { get_funding_rates } from "./get_funding_rates";
 
 export const commandHandlers: Record<
@@ -16,6 +17,7 @@ export const commandHandlers: Record<
   funding_history_by_tiker,
   oi_by_tiker,
   get_funding_rates,
+  feedback,
   help: async (ctx) => {
     await ctx.reply(
       "Доступные команды:\n" +
@@ -23,8 +25,5 @@ export const commandHandlers: Record<
           .map((c) => `/${c}`)
           .join("\n")
     );
-  },
-  feedback: async (ctx) => {
-    ctx.scene.enter("feedback_scene");
   },
 };
