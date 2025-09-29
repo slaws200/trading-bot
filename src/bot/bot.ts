@@ -4,6 +4,7 @@ import * as dotenv from "dotenv";
 import { router as CommandsRouter } from "../modules/router";
 import { listToSetCommands } from "./commandsDescription";
 import { feedback_scene } from "./scenes/feedback_scene";
+import { msgToAdmin } from "./utils/msgToAdmin";
 
 dotenv.config();
 
@@ -19,6 +20,20 @@ const stage = new Scenes.Stage([feedback_scene]);
 bot.use(session());
 bot.use(stage.middleware());
 bot.use(composer);
-// bot.telegram.setMyCommands(listToSetCommands);
+bot.telegram.setMyCommands(listToSetCommands);
 
 composer.on(message("text"), async (ctx) => CommandsRouter(ctx));
+
+bot.catch(async (err, ctx) => {
+  const chatId = ctx.chat?.id ?? "unknown";
+  const user = ctx.from?.username
+    ? `@${ctx.from.username}`
+    : ctx.from?.id ?? "unknown";
+  const payload = typeof err === "object" && err !== null ? (err as any) : {};
+  const name = payload.name ?? "Error";
+  const message = payload.message ?? String(err);
+  const stack = payload.stack ?? "no stack";
+  await msgToAdmin(
+    `⚠️ Global error\nChat: ${chatId}\nUser: ${user}\nName: ${name}\nMessage: ${message}\nStack:\n${stack}`
+  );
+});
