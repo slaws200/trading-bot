@@ -10,6 +10,9 @@ export const router = (ctx: MyContext) => {
     return;
   }
   const handler = command.slice(1);
-  Object.keys(commandHandlers).includes(handler) &&
-    commandHandlers[handler](ctx);
+  Object.keys(commandHandlers).includes(handler)
+    ? commandHandlers[handler](ctx)
+    : ctx.reply(
+        "Я не знаю этой команды, попробуйте посмотреть здесь /help, что я умею!"
+      );
 };

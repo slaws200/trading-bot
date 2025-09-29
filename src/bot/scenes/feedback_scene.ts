@@ -26,14 +26,20 @@ feedback_scene.on("text", (ctx) => {
       reply_markup: { remove_keyboard: true },
     });
     return ctx.scene.leave();
-  } else {
-    msgToAdmin(ctx.message.text);
-    ctx.reply(
-      "Ваше сообщение отправлено администратору. Спасибо за обратную связь!",
-      {
-        reply_markup: { remove_keyboard: true },
-      }
-    );
-    return ctx.scene.leave();
   }
+  if (ctx.message.text.startsWith("/")) {
+    return ctx.reply("Отправьте обычное сообщение, не команду");
+  }
+  msgToAdmin(
+    `#отзыв "${ctx.message.text}" от пользователя ${
+      ctx.from?.username ? "@" + ctx.from.username : ctx.from.id
+    }`
+  );
+  ctx.reply(
+    "Ваше сообщение отправлено администратору. Спасибо за обратную связь!",
+    {
+      reply_markup: { remove_keyboard: true },
+    }
+  );
+  return ctx.scene.leave();
 });
