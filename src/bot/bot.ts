@@ -2,6 +2,7 @@ import { Composer, session, Telegraf } from "telegraf";
 import { message } from "telegraf/filters";
 import * as dotenv from "dotenv";
 import { router as CommandsRouter } from "../modules/router";
+import { listToSetCommands } from "./commandsDescription";
 
 dotenv.config();
 
@@ -14,5 +15,6 @@ export const bot = new Telegraf(process.env.BOT_TOKEN);
 
 bot.use(session());
 bot.use(composer);
+bot.telegram.setMyCommands(listToSetCommands);
 
 composer.on(message("text"), async (ctx) => CommandsRouter(ctx));

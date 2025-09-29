@@ -1,7 +1,7 @@
 import { getFundingHistory } from "../../../api/getFundingRateHistory";
 import { MyContext } from "../../../types/MyContext";
 
-export async function fundingHistoryByTiker(ctx: MyContext) {
+export async function funding_history_by_tiker(ctx: MyContext) {
   const symbol = ctx.message.text.split(" ")[1]?.toUpperCase() || "BTCUSDT";
   const history = await getFundingHistory(symbol, 5);
   let msg = `📊 Funding history for ${symbol}:\n\n`;

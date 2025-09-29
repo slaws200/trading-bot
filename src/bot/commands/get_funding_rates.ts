@@ -1,9 +1,9 @@
 import { Context } from "telegraf";
-import { showFundingSignals } from "../../api/getBinanceFundingRates";
+import { getBinanceFundingRates } from "../../api/binance/getBinanceFundingRates";
 import { getBybitFundingRates } from "../../api/bybit/getBybitFundingRates";
 
-export async function getFundingRates(ctx: Context) {
-  const funding = (await showFundingSignals()) ?? [];
+export async function get_funding_rates(ctx: Context) {
+  const funding = (await getBinanceFundingRates()) ?? [];
   const bybitFunding = await getBybitFundingRates();
   const list = (funding: string[]) => {
     if (funding && funding.length) {

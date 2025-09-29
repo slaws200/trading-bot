@@ -1,17 +1,21 @@
-import { getFundingRates } from "./getFundingRates";
-import { start } from "./start";
-import { oiByTiker } from "./binance/oiByTiker";
 import { MyContext } from "../../types/MyContext";
-import { fundingHistoryByTiker } from "./binance/fundingHistoryByTiker";
+import { funding_history_by_tiker } from "./binance/funding_history_by_tiker";
+import { oi_by_tiker } from "./binance/oi_by_tiker";
+import { get_funding_rates } from "./get_funding_rates";
 
 export const commandHandlers: Record<
   string,
   (ctx: MyContext) => Promise<any> | void
 > = {
-  start,
-  fundingHistoryByTiker,
-  oiByTiker,
-  getFundingRates,
+  start: async (ctx) =>
+    ctx.reply(
+      `Привет, ${
+        ctx.from?.first_name || "друг"
+      }! 👋 Я собираю данные с биржи Binance и Bybit, напиши /help чтобы узнать, что я умею.`
+    ),
+  funding_history_by_tiker,
+  oi_by_tiker,
+  get_funding_rates,
   help: async (ctx) => {
     await ctx.reply(
       "Доступные команды:\n" +
