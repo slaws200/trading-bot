@@ -9,7 +9,10 @@ export const router = (ctx: MyContext) => {
     );
     return;
   }
-  const handler = command.slice(1);
+  const handler = command.slice(
+    1,
+    [...command].findIndex((i) => i === " ")
+  );
   Object.keys(commandHandlers).includes(handler)
     ? commandHandlers[handler](ctx)
     : ctx.reply(
