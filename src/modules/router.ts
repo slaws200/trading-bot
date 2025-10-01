@@ -9,9 +9,10 @@ export const router = (ctx: MyContext) => {
     );
     return;
   }
+  const lastCharIndex = [...command].findIndex((i) => i === " ");
   const handler = command.slice(
     1,
-    [...command].findIndex((i) => i === " ")
+    lastCharIndex > 0 ? lastCharIndex : undefined
   );
   Object.keys(commandHandlers).includes(handler)
     ? commandHandlers[handler](ctx)
