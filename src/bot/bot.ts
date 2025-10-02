@@ -7,6 +7,9 @@ import { get_funding_rates } from "./commands/get_funding_rates";
 import { listToSetCommands } from "./commandsDescription";
 import { feedback_scene } from "./scenes/feedback_scene";
 import { msgToAdmin } from "./utils/msgToAdmin";
+import * as cron from "node-cron";
+import { getBinanceFundingRates } from "../api/binance/getBinanceFundingRates";
+import { getBybitFundingRates } from "../api/bybit/getBybitFundingRates";
 import { help_action } from "./commands/help";
 
 dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
@@ -45,6 +48,33 @@ bot.action("ALERTS", async (ctx) => {
 });
 
 composer.on(message("text"), async (ctx) => CommandsRouter(ctx));
+
+cron.schedule(
+  "0 0 * * * *",
+  async () => {
+    const funding = (await getBinanceFundingRates()) ?? [];
+    const bybitFunding = await getBybitFundingRates();
+    const list = (funding: string[]) => {
+      if (funding && funding.length) {
+        return funding.map((item, i) => `<b>${i + 1}. </b>${item}`);
+      } else {
+        return ["Токенов по запросу не найдено"];
+      }
+    };
+    const message = `Binance: \n\n ${list(funding).join(
+      "\n"
+    )} \n\nBybit: \n\n ${list(bybitFunding).join("\n")}`;
+
+    try {
+      await msgToAdmin(message);
+    } catch (error) {
+      console.error("❌ Ошибка:", error);
+    }
+  },
+  {
+    timezone: "Europe/Moscow",
+  }
+);
 
 bot.catch(async (err, ctx) => {
   const chatId = ctx.chat?.id ?? "unknown";
