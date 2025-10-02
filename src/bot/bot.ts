@@ -12,7 +12,9 @@ import { getBinanceFundingRates } from "../api/binance/getBinanceFundingRates";
 import { getBybitFundingRates } from "../api/bybit/getBybitFundingRates";
 import { help_action } from "./commands/help";
 
-dotenv.config({ path: `.env.${process.env.NODE_ENV}` });
+dotenv.config({
+  path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ".env",
+});
 
 if (!process.env.BOT_TOKEN) {
   throw new Error("BOT_TOKEN is not defined in .env");
