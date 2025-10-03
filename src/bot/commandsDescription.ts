@@ -4,11 +4,11 @@ const commandsNames = Object.keys(commandHandlers);
 
 const commandsDescription: Record<string, string> = {
   start: "Запуск бота",
-  funding_history_by_tiker: "История ставки по тикеру (по умолчанию BTCUSDT)",
   oi_by_tiker: "Открытый интерес по тикеру (по умолчанию BTCUSDT)",
   get_funding_rates: "Текущие ставки финансирования",
   help: "Помощь",
   feedback: "Отзыв или предложение",
+  funding_history_by_tiker: "Фандинг история по тикеру",
 };
 
 export const listToSetCommands = commandsNames.map((command) => {
