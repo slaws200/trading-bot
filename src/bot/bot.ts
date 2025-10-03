@@ -9,6 +9,7 @@ import { actions } from "./actions";
 import { listToSetCommands } from "./commandsDescription";
 import { feedback_scene } from "./scenes/feedback_scene";
 import { msgToAdmin } from "./utils/msgToAdmin";
+import { funding_history_scene } from "./scenes/funding_history_scene";
 
 dotenv.config({
   path: process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : ".env",
@@ -28,7 +29,7 @@ export const bot = new Telegraf<Scenes.SceneContext>(
   botOptions
 );
 
-const scenes = new Scenes.Stage([feedback_scene]);
+const scenes = new Scenes.Stage([feedback_scene, funding_history_scene]);
 
 bot.use(session());
 bot.use(scenes.middleware());

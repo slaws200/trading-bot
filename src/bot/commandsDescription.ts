@@ -8,6 +8,7 @@ const commandsDescription: Record<string, string> = {
   get_funding_rates: "Текущие ставки финансирования",
   help: "Помощь",
   feedback: "Отзыв или предложение",
+  funding_history_by_tiker: "Фандинг история по тикеру",
 };
 
 export const listToSetCommands = commandsNames.map((command) => {
