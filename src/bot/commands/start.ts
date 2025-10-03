@@ -13,7 +13,6 @@ export async function start(ctx: MyContext) {
               text: "📈 Высокая волатильность",
               callback_data: "GET_FUNDUNGS",
             },
-            { text: "🛎 Уведомления", callback_data: "ALERTS" },
           ],
           [{ text: "ℹ️ Помощь", callback_data: "HELP" }],
         ],

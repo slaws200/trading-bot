@@ -1,5 +1,4 @@
 import { MyContext } from "../../types/MyContext";
-import { funding_history_by_tiker } from "./binance/funding_history_by_tiker";
 import { oi_by_tiker } from "./binance/oi_by_tiker";
 import { feedback } from "./feedback";
 import { get_funding_rates } from "./get_funding_rates";
@@ -11,7 +10,6 @@ export const commandHandlers: Record<
   (ctx: MyContext) => Promise<any> | void
 > = {
   start,
-  funding_history_by_tiker,
   oi_by_tiker,
   get_funding_rates,
   feedback,
