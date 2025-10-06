@@ -30,18 +30,27 @@ funding_history_scene.on("text", async (ctx) => {
   if (ctx.message.text.startsWith("/")) {
     return ctx.reply("Отправьте обычное сообщение, не команду");
   }
-  const res = await getFundingHistory(
-    ctx.message.text.toUpperCase() + "USDT",
-    10
-  );
-  let msg = `📊 Funding history for ${ctx.message.text}:\n\n`;
-  res.forEach((h: any) => {
-    msg += `${h.fundingTime} → ${(h.fundingRate * 100).toFixed(3)}%${
-      h.fundingRate > 0 ? "📈" : "📉"
-    }\n`;
-  });
-  await ctx.reply(msg, {
-    reply_markup: { remove_keyboard: true },
-  });
-  return ctx.scene.leave();
+  try {
+    const res = await getFundingHistory(
+      ctx.message.text.toUpperCase() + "USDT",
+      10
+    );
+    let msg = `📊 Funding history for ${ctx.message.text.toUpperCase() + "USDT"}:\n\n`;
+    res.forEach((h: any) => {
+      msg += `${h.fundingTime} → ${(h.fundingRate * 100).toFixed(3)}%${
+        h.fundingRate > 0 ? "📈" : "📉"
+      }\n`;
+    });
+    await ctx.reply(msg, {
+      reply_markup: { remove_keyboard: true },
+    });
+  } catch (error) {
+    if(error instanceof Error){
+      await ctx.reply(`Ошибка запроса, передайте сообщение тех. поддержке - ${error.message}`, {
+        reply_markup: { remove_keyboard: true },
+      });
+    }
+  } finally {
+    return ctx.scene.leave();
+  }
 });

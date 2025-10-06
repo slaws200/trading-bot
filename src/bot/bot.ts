@@ -71,16 +71,16 @@ cron.schedule(
   }
 );
 
-bot.catch(async (err, ctx) => {
-  const chatId = ctx.chat?.id ?? "unknown";
-  const user = ctx.from?.username
-    ? `@${ctx.from.username}`
-    : ctx.from?.id ?? "unknown";
-  const payload = typeof err === "object" && err !== null ? (err as any) : {};
-  const name = payload.name ?? "Error";
-  const message = payload.message ?? String(err);
-  const stack = payload.stack ?? "no stack";
-  await msgToAdmin(
-    `⚠️ Global error\nChat: ${chatId}\nUser: ${user}\nName: ${name}\nMessage: ${message}\nStack:\n${stack}`
-  );
-});
+// bot.catch(async (err, ctx) => {
+//   const chatId = ctx.chat?.id ?? "unknown";
+//   const user = ctx.from?.username
+//     ? `@${ctx.from.username}`
+//     : ctx.from?.id ?? "unknown";
+//   const payload = typeof err === "object" && err !== null ? (err as any) : {};
+//   const name = payload.name ?? "Error";
+//   const message = payload.message ?? String(err);
+//   const stack = payload.stack ?? "no stack";
+//   await msgToAdmin(
+//     `⚠️ Global error\nChat: ${chatId}\nUser: ${user}\nName: ${name}\nMessage: ${message}\nStack:\n${stack}`
+//   );
+// });
